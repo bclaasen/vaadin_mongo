@@ -11,9 +11,12 @@ import com.vaadin.ui.UI;
 
 import de.berndclaasen.datenmonster.backend.model.Customer;
 import de.berndclaasen.datenmonster.backend.service.CustomerRepository;
+import de.berndclaasen.datenmonster.backend.service.GoodRepository;
 import de.berndclaasen.datenmonster.backend.service.SpringResolver;
 import de.berndclaasen.datenmonster.frontend.customer.CustomerPresenter;
 import de.berndclaasen.datenmonster.frontend.customer.CustomerView;
+import de.berndclaasen.datenmonster.frontend.good.GoodPresenter;
+import de.berndclaasen.datenmonster.frontend.good.GoodView;
 
 @SpringUI
 public class MyVaadinUI extends UI {
@@ -22,16 +25,22 @@ public class MyVaadinUI extends UI {
 	 */
 	private static final long serialVersionUID = -5029682016008212717L;
 	@Autowired CustomerRepository customerRepository;
+	@Autowired GoodRepository goodRepository;
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	initSpringBeans();
     	
+    	/*
     	CustomerPresenter<CustomerView> customerPresenter=new CustomerPresenter<CustomerView>(CustomerView.class);
     	setContent(customerPresenter.getView());
+    	*/
+    	GoodPresenter<GoodView> goodPresenter=new GoodPresenter<GoodView>(GoodView.class);
+    	setContent(goodPresenter.getView());
     }
 
 	private void initSpringBeans() {
-		SpringResolver.INSTANCE.setCustomerRepository(customerRepository);	
+		SpringResolver.INSTANCE.setCustomerRepository(customerRepository);
+		SpringResolver.INSTANCE.setGoodRepository(goodRepository);
 	}
 }

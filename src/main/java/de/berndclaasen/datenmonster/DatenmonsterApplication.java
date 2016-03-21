@@ -6,13 +6,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import de.berndclaasen.datenmonster.backend.model.Customer;
+import de.berndclaasen.datenmonster.backend.model.Good;
 import de.berndclaasen.datenmonster.backend.service.CustomerRepository;
+import de.berndclaasen.datenmonster.backend.service.GoodRepository;
 
 @SpringBootApplication
 public class DatenmonsterApplication implements CommandLineRunner {
 
 	@Autowired
-	private CustomerRepository repository;
+	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private GoodRepository goodRepository;
 	
     public static void main(String[] args) {
         SpringApplication.run(DatenmonsterApplication.class, args);
@@ -23,8 +28,9 @@ public class DatenmonsterApplication implements CommandLineRunner {
 		//repository.deleteAll(); 
 
 		// save a couple of customers
-		//repository.save(new Customer("Alice", "Smith"));
-		//repository.save(new Customer("Bob", "Smith"));
+    	//customerRepository.save(new Customer("Alice", "Smith"));
+    	//customerRepository.save(new Customer("Bob", "Smith"));
+    	//goodRepository.save(new Good("Fussball", "Fussy"));
 	}
 
 }
