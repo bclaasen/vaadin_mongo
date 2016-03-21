@@ -13,17 +13,22 @@ import de.berndclaasen.datenmonster.backend.model.Customer;
 import de.berndclaasen.datenmonster.backend.service.CustomerRepository;
 import de.berndclaasen.datenmonster.backend.service.SpringResolver;
 import de.berndclaasen.datenmonster.frontend.customer.CustomerPresenter;
+import de.berndclaasen.datenmonster.frontend.customer.CustomerView;
 
 @SpringUI
 public class MyVaadinUI extends UI {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5029682016008212717L;
 	@Autowired CustomerRepository customerRepository;
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	initSpringBeans();
     	
-    	CustomerPresenter customerPresenter=new CustomerPresenter();
-    	setContent(customerPresenter.getCustomerView().getView());
+    	CustomerPresenter<CustomerView> customerPresenter=new CustomerPresenter<CustomerView>();
+    	setContent(customerPresenter.getView());
     }
 
 	private void initSpringBeans() {

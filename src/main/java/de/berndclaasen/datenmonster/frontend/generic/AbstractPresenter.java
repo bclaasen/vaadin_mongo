@@ -11,9 +11,11 @@ public abstract class AbstractPresenter<T extends PersistObject, V extends IView
 	
 	private void initViewAndModel() {
 		createView();
-		createModel();
+		//createModel();
 	}
 	
 	protected abstract void createView();
-	protected abstract void createModel();
+	//protected abstract void createModel();
+	
+	protected abstract V getView();
 }

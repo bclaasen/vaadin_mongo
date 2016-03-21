@@ -20,8 +20,6 @@ public class DatenmonsterApplication implements CommandLineRunner {
     
     @Override
 	public void run(String... args) throws Exception {
-
-    	//Bernd
 		//repository.deleteAll(); 
 
 		// save a couple of customers
