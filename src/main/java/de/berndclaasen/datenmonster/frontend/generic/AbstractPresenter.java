@@ -9,17 +9,17 @@ public abstract class AbstractPresenter<T extends PersistObject, V extends IOver
 	
 	public AbstractPresenter() {
 		initView();
-		initComponents();
 	}
 	
 	private void initView() {
 		createView();
+		initComponents();
 	}
-	
-	protected abstract void createView();
 	
 	protected abstract void initComponents();
 	
+	protected abstract void createView();	
+
 	public V getView() {
 		return view;
 	}

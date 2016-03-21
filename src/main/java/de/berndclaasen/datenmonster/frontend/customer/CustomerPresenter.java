@@ -17,11 +17,9 @@ public class CustomerPresenter<V extends CustomerView> extends AbstractPresenter
     	view=(V) new CustomerView();
 	}
 	
-
 	protected void initComponents() {
 		final BeanItemContainer<Customer> dataSource = new BeanItemContainer<Customer>(Customer.class);
 		dataSource.addAll(SpringResolver.INSTANCE.getCustomerRepository().findAll());
-		view.getTable().setContainerDataSource(dataSource);
-		
+		view.getTable().setContainerDataSource(dataSource);	
 	}
 }
