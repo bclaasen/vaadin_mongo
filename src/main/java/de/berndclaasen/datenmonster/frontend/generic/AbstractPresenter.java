@@ -5,17 +5,22 @@ import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
 
 public abstract class AbstractPresenter<T extends PersistObject, V extends IOverView> {
 
+	public V view;
+	
 	public AbstractPresenter() {
-		initViewAndModel();
+		initView();
+		initComponents();
 	}
 	
-	private void initViewAndModel() {
+	private void initView() {
 		createView();
-		//createModel();
 	}
 	
 	protected abstract void createView();
-	//protected abstract void createModel();
 	
-	protected abstract V getView();
+	protected abstract void initComponents();
+	
+	public V getView() {
+		return view;
+	}
 }
