@@ -20,16 +20,6 @@ public class MyVaadinUI extends UI {
 	
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-    	//Customer customer = customerRepository.findByLastName("Smith").get(0);
-        //setContent(new Label(customer.toString()));
-    	//setContent(new Label("Hallo"));
-    	/*
-    	TablePanel tablePanel=new TablePanel(customerRepository);
-    	BeanItemContainer<Customer> dataSource = new BeanItemContainer<Customer>(Customer.class);
-    	dataSource.addAll(customerRepository.findAll());
-    	tablePanel.getTable().setContainerDataSource(dataSource);
-    	setContent(tablePanel);
-    	*/
     	initSpringBeans();
     	
     	CustomerPresenter customerPresenter=new CustomerPresenter();
