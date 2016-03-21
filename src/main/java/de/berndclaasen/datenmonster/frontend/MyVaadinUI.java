@@ -27,7 +27,7 @@ public class MyVaadinUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
     	initSpringBeans();
     	
-    	CustomerPresenter<CustomerView> customerPresenter=new CustomerPresenter<CustomerView>();
+    	CustomerPresenter<CustomerView> customerPresenter=new CustomerPresenter<CustomerView>(CustomerView.class);
     	setContent(customerPresenter.getView());
     }
 

@@ -4,17 +4,13 @@ import com.vaadin.data.util.BeanItemContainer;
 
 import de.berndclaasen.datenmonster.backend.model.Customer;
 import de.berndclaasen.datenmonster.backend.service.SpringResolver;
-import de.berndclaasen.datenmonster.frontend.generic.AbstractPresenter;
+import de.berndclaasen.datenmonster.frontend.generic.AbstractOverviewPresenter;
 
-public class CustomerPresenter<V extends CustomerView> extends AbstractPresenter<Customer,V> {
+public class CustomerPresenter<V extends CustomerView> extends AbstractOverviewPresenter<Customer,V> {
 
-	public CustomerPresenter() {
-		super();
+	public CustomerPresenter(Class<V> clazz) {
+		super(clazz);
 		
-	}
-	
-	protected void createView() {
-    	view=(V) new CustomerView();
 	}
 	
 	protected void initComponents() {

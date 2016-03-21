@@ -3,10 +3,10 @@ package de.berndclaasen.datenmonster.frontend.generic;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
-public abstract class AbstractOverView extends VerticalLayout implements IOverView{
+public abstract class AbstractOverview extends VerticalLayout implements IOverView{
 	Table table = new Table();
 	
-	public AbstractOverView() {
+	public AbstractOverview() {
 		super();
 		initGui();
 	}
