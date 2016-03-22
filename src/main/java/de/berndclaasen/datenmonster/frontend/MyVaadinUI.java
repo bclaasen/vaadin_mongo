@@ -13,10 +13,8 @@ import de.berndclaasen.datenmonster.backend.model.Customer;
 import de.berndclaasen.datenmonster.backend.service.CustomerRepository;
 import de.berndclaasen.datenmonster.backend.service.GoodRepository;
 import de.berndclaasen.datenmonster.backend.service.SpringResolver;
-import de.berndclaasen.datenmonster.frontend.customer.CustomerPresenter;
-import de.berndclaasen.datenmonster.frontend.customer.CustomerView;
-import de.berndclaasen.datenmonster.frontend.good.GoodPresenter;
-import de.berndclaasen.datenmonster.frontend.good.GoodView;
+import de.berndclaasen.datenmonster.frontend.customer.CustomerOverviewPresenter;
+import de.berndclaasen.datenmonster.frontend.customer.CustomerOverView;
 
 @SpringUI
 public class MyVaadinUI extends UI {
@@ -31,12 +29,14 @@ public class MyVaadinUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
     	initSpringBeans();
     	
-    	/*
-    	CustomerPresenter<CustomerView> customerPresenter=new CustomerPresenter<CustomerView>(CustomerView.class);
+    	
+    	CustomerOverviewPresenter<CustomerOverView, Customer> customerPresenter=new CustomerOverviewPresenter<CustomerOverView, Customer>(CustomerOverView.class,Customer.class);
     	setContent(customerPresenter.getView());
-    	*/
-    	GoodPresenter<GoodView> goodPresenter=new GoodPresenter<GoodView>(GoodView.class);
+    	
+    	/*
+    	GoodOverviewPresenter<GoodOverView> goodPresenter=new GoodOverviewPresenter<GoodOverView>(GoodOverView.class);
     	setContent(goodPresenter.getView());
+    	*/
     }
 
 	private void initSpringBeans() {
