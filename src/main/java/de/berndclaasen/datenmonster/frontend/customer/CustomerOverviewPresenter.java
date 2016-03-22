@@ -13,6 +13,7 @@ public class CustomerOverviewPresenter<V extends CustomerOverView, T extends Cus
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected MongoRepository<T, String> getRepository() {
 		return (MongoRepository<T, String>) SpringResolver.INSTANCE.getCustomerRepository();
 	}
