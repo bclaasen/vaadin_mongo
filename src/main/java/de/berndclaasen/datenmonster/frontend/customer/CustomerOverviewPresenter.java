@@ -28,7 +28,7 @@ public class CustomerOverviewPresenter<V extends CustomerOverView, T extends Cus
 	@Override
 	protected void openDetailview(T persistObject) {
 		//Notification.show("Opening customer: "+persistObject.getLastName());
-		CustomerDetailPresenter<CustomerDetailview, Customer> customerDetailPresenter=new CustomerDetailPresenter<CustomerDetailview, Customer>(CustomerDetailview.class,Customer.class,persistObject);
+		CustomerDetailPresenter<CustomerDetailview, Customer> customerDetailPresenter=new CustomerDetailPresenter<CustomerDetailview, Customer>(CustomerDetailview.class,Customer.class,persistObject,this);
 		customerDetailPresenter.show();
 	}
 

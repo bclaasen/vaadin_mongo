@@ -2,10 +2,12 @@ package de.berndclaasen.datenmonster.frontend.generic;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import com.vaadin.ui.Window.CloseEvent;
 
 import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
 
@@ -14,17 +16,20 @@ public abstract class AbstractDetailPresenter<T extends PersistObject, V extends
 	private Class<V> clazzV;
 	private Class<T> clazzT;
 	private T persistObject;
+	FieldGroup fieldGroup;
+	IOverviewPresenter overviewPresenter;
 	
-	public AbstractDetailPresenter(Class<V> clazzV, Class<T> clazzT, T persistObject) {
+	public AbstractDetailPresenter(Class<V> clazzV, Class<T> clazzT, T persistObject, IOverviewPresenter overviewPresenter) {
 		this.clazzV=clazzV;
 		this.clazzT=clazzT;
 		this.persistObject=persistObject;
+		this.overviewPresenter=overviewPresenter;
 		initView();
 		initComponents();
 	}
 	
 	private void initComponents() {
-		FieldGroup fieldGroup = new BeanFieldGroup<T>(clazzT);
+		fieldGroup = new BeanFieldGroup<T>(clazzT);
 		fieldGroup.setItemDataSource(new BeanItem<T>(persistObject));
         // Loop through the properties, build fields for them and add the fields
         // to this UI
@@ -58,10 +63,25 @@ public abstract class AbstractDetailPresenter<T extends PersistObject, V extends
 		VerticalLayout popupContent=(VerticalLayout) getView().getMainLayout();
 		popupContent.setMargin(true);
 
-		Window subwindow=new Window(clazzT.getName());
+		Window subwindow=new Window(clazzT.getSimpleName());
 		subwindow.setModal(true);
         subwindow.setContent(popupContent);
         subwindow.center();
+        subwindow.addCloseListener(new Window.CloseListener() {		
+			@Override
+            public void windowClose(CloseEvent e) {
+               try {
+				fieldGroup.commit();
+				save(persistObject);
+				overviewPresenter.refreshTable();
+			} catch (CommitException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            }
+        });
         UI.getCurrent().addWindow(subwindow);
 	}
+
+	protected abstract void save(T persistObject2);
 }

@@ -7,17 +7,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
-import de.berndclaasen.datenmonster.backend.model.Customer;
 import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
-import de.berndclaasen.datenmonster.frontend.customer.CustomerDetailPresenter;
-import de.berndclaasen.datenmonster.frontend.customer.CustomerDetailview;
 
 
-public abstract class AbstractOverviewPresenter<T extends PersistObject, V extends IOverView> extends AbstractPresenter<PersistObject, IView> {
+public abstract class AbstractOverviewPresenter<T extends PersistObject, V extends IOverView> extends AbstractPresenter<PersistObject, IView> implements IOverviewPresenter{
 
 	private Class<V> clazzV;
 	private Class<T> clazzT;
@@ -70,5 +64,12 @@ public abstract class AbstractOverviewPresenter<T extends PersistObject, V exten
 	public V getView() {
 		return (V) view;
 	}
+	
+	public void refreshTable(){
+		final BeanItemContainer<T> dataSource = new BeanItemContainer<T>(clazzT);
+		dataSource.addAll(getEntitylist());
+		getView().getTable().setContainerDataSource(dataSource);
+	}
+	
 
 }
