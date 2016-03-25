@@ -10,6 +10,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 
 import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
+import de.berndclaasen.datenmonster.backend.service.RepositoryFactory;
 
 public abstract class AbstractDetailPresenter<T extends PersistObject, V extends IDetailView> extends AbstractPresenter<PersistObject, IView> {
 
@@ -18,12 +19,14 @@ public abstract class AbstractDetailPresenter<T extends PersistObject, V extends
 	private T persistObject;
 	FieldGroup fieldGroup;
 	IOverviewPresenter overviewPresenter;
+	RepositoryFactory<T> factory;
 	
 	public AbstractDetailPresenter(Class<V> clazzV, Class<T> clazzT, T persistObject, IOverviewPresenter overviewPresenter) {
 		this.clazzV=clazzV;
 		this.clazzT=clazzT;
 		this.persistObject=persistObject;
 		this.overviewPresenter=overviewPresenter;
+		this.factory=new RepositoryFactory<T>(clazzT);
 		initView();
 		initComponents();
 	}
@@ -83,5 +86,7 @@ public abstract class AbstractDetailPresenter<T extends PersistObject, V extends
         UI.getCurrent().addWindow(subwindow);
 	}
 
-	protected abstract void save(T persistObject2);
+	protected void save(T persistObject2) {
+		factory.getRepository().save(persistObject2);
+	}
 }

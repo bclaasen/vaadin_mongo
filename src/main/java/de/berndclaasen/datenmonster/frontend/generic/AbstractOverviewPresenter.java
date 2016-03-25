@@ -9,16 +9,19 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 
 import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
+import de.berndclaasen.datenmonster.backend.service.RepositoryFactory;
 
 
 public abstract class AbstractOverviewPresenter<T extends PersistObject, V extends IOverView> extends AbstractPresenter<PersistObject, IView> implements IOverviewPresenter{
 
 	private Class<V> clazzV;
 	private Class<T> clazzT;
+	RepositoryFactory<T> factory;
 	
 	public AbstractOverviewPresenter(Class<V> clazzV, Class<T> clazzT) {
 		this.clazzV=clazzV;
 		this.clazzT=clazzT;
+		this.factory=new RepositoryFactory<T>(clazzT);
 		initView();
 		initComponents();
 	}
@@ -49,7 +52,9 @@ public abstract class AbstractOverviewPresenter<T extends PersistObject, V exten
 		return (Collection<? extends T>) getRepository().findAll();
 	}
 	
-	protected abstract MongoRepository<T, String> getRepository();
+	private MongoRepository<T, String> getRepository() {
+		return factory.getRepository();
+	}
 	
 	protected void createView() {
 		try {
