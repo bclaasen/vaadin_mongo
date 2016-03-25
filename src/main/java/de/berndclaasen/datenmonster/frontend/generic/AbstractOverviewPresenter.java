@@ -1,6 +1,5 @@
 package de.berndclaasen.datenmonster.frontend.generic;
 
-import java.awt.event.ItemListener;
 import java.util.Collection;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -8,19 +7,24 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
+import de.berndclaasen.datenmonster.backend.model.Customer;
 import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
+import de.berndclaasen.datenmonster.frontend.customer.CustomerDetailPresenter;
+import de.berndclaasen.datenmonster.frontend.customer.CustomerDetailview;
 
 
-public abstract class AbstractOverviewPresenter<T extends PersistObject, V extends IOverView> {
+public abstract class AbstractOverviewPresenter<T extends PersistObject, V extends IOverView> extends AbstractPresenter<PersistObject, IView> {
 
-	public V view;
-	private Class<V> clazz;
-	private Class<T> clazz2;
+	private Class<V> clazzV;
+	private Class<T> clazzT;
 	
-	public AbstractOverviewPresenter(Class<V> clazz, Class<T> clazz2) {
-		this.clazz=clazz;
-		this.clazz2=clazz2;
+	public AbstractOverviewPresenter(Class<V> clazzV, Class<T> clazzT) {
+		this.clazzV=clazzV;
+		this.clazzT=clazzT;
 		initView();
 		initComponents();
 	}
@@ -30,9 +34,9 @@ public abstract class AbstractOverviewPresenter<T extends PersistObject, V exten
 	}
 	
 	protected void initComponents() {
-		final BeanItemContainer<T> dataSource = new BeanItemContainer<T>(clazz2);
+		final BeanItemContainer<T> dataSource = new BeanItemContainer<T>(clazzT);
 		dataSource.addAll(getEntitylist());
-		view.getTable().setContainerDataSource(dataSource);	
+		getView().getTable().setContainerDataSource(dataSource);	
 		ItemClickListener listener=new ItemClickListener() {
 			
 			@Override
@@ -42,7 +46,7 @@ public abstract class AbstractOverviewPresenter<T extends PersistObject, V exten
 				openDetailview(persistObject);
 			}
 		};
-		view.getTable().addItemClickListener(listener);
+		getView().getTable().addItemClickListener(listener);
 	}
 	
 	protected abstract void openDetailview(T persistObject);
@@ -55,15 +59,16 @@ public abstract class AbstractOverviewPresenter<T extends PersistObject, V exten
 	
 	protected void createView() {
 		try {
-			view=clazz.newInstance();
+			view=clazzV.newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	};	
-
+	
 	public V getView() {
-		return view;
+		return (V) view;
 	}
+
 }

@@ -2,7 +2,12 @@ package de.berndclaasen.datenmonster.frontend.customer;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.PopupView;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 import de.berndclaasen.datenmonster.backend.model.Customer;
 import de.berndclaasen.datenmonster.backend.service.SpringResolver;
@@ -22,7 +27,9 @@ public class CustomerOverviewPresenter<V extends CustomerOverView, T extends Cus
 
 	@Override
 	protected void openDetailview(T persistObject) {
-		Notification.show("Opening customer: "+persistObject.getLastName());
-		
+		//Notification.show("Opening customer: "+persistObject.getLastName());
+		CustomerDetailPresenter<CustomerDetailview, Customer> customerDetailPresenter=new CustomerDetailPresenter<CustomerDetailview, Customer>(CustomerDetailview.class,Customer.class,persistObject);
+		customerDetailPresenter.show();
 	}
+
 }

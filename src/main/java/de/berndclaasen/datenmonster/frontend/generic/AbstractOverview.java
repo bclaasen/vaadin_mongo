@@ -12,6 +12,8 @@ public abstract class AbstractOverview extends VerticalLayout implements IOverVi
 	}
 
 	private void initGui() {
+		setSizeFull();
+		table.setSizeFull();
 		addComponent(table);
 		
 	}
