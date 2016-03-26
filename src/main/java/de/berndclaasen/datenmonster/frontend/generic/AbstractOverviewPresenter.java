@@ -12,7 +12,7 @@ import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
 import de.berndclaasen.datenmonster.backend.service.RepositoryFactory;
 
 
-public abstract class AbstractOverviewPresenter<T extends PersistObject, V extends IOverView> extends AbstractPresenter<PersistObject, IView> implements IOverviewPresenter{
+public abstract class AbstractOverviewPresenter<V extends IOverView,T extends PersistObject> extends AbstractPresenter<IView,PersistObject> implements IOverviewPresenter{
 
 	private Class<V> clazzV;
 	private Class<T> clazzT;
@@ -41,12 +41,18 @@ public abstract class AbstractOverviewPresenter<T extends PersistObject, V exten
 				T persistObject=(T) event.getItemId();
 				//System.out.println(persistObject.toString());
 				openDetailview(persistObject);
+				
 			}
 		};
 		getView().getTable().addItemClickListener(listener);
 	}
 	
-	protected abstract void openDetailview(T persistObject);
+	protected void openDetailview(T persistObject) {
+		IDetailPresenter detailPresenter=getDetailPresenter(persistObject);
+		detailPresenter.show();
+	}
+	
+	protected abstract IDetailPresenter getDetailPresenter(T persistObject);
 
 	protected Collection<? extends T> getEntitylist() {
 		return (Collection<? extends T>) getRepository().findAll();
