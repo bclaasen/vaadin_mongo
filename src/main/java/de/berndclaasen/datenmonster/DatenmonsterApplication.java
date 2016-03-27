@@ -5,19 +5,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import de.berndclaasen.datenmonster.backend.model.Customer;
-import de.berndclaasen.datenmonster.backend.model.Good;
 import de.berndclaasen.datenmonster.backend.service.CustomerRepository;
-import de.berndclaasen.datenmonster.backend.service.GoodRepository;
 
 @SpringBootApplication
 public class DatenmonsterApplication implements CommandLineRunner {
 
 	@Autowired
 	private CustomerRepository customerRepository;
-	
-	@Autowired
-	private GoodRepository goodRepository;
 	
     public static void main(String[] args) {
         SpringApplication.run(DatenmonsterApplication.class, args);

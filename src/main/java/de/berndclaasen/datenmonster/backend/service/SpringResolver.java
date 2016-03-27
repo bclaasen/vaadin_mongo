@@ -1,26 +1,19 @@
 package de.berndclaasen.datenmonster.backend.service;
 
+import de.berndclaasen.datenmonster.backend.model.Customer;
+
 public enum SpringResolver {
 
 	INSTANCE;
-	private CustomerRepository customerRepository;
-	private GoodRepository goodRepository;
+	private GenericMongoRepository<Customer> customerRepository;
 
-	public CustomerRepository getCustomerRepository() {
+	public GenericMongoRepository<Customer> getCustomerRepository() {
 		return customerRepository;
 	}
 
-	public void setCustomerRepository(CustomerRepository customerRepository) {
+	public void setCustomerRepository(
+			GenericMongoRepository<Customer> customerRepository) {
 		this.customerRepository = customerRepository;
 	}
-
-	public GoodRepository getGoodRepository() {
-		return goodRepository;
-	}
-
-	public void setGoodRepository(GoodRepository goodRepository) {
-		this.goodRepository = goodRepository;
-	}
-	
 	
 }

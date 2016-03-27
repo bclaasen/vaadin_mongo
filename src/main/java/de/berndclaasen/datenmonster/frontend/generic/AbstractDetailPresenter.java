@@ -1,5 +1,8 @@
 package de.berndclaasen.datenmonster.frontend.generic;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
@@ -10,23 +13,29 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.CloseEvent;
 
 import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
+import de.berndclaasen.datenmonster.backend.service.GenericMongoRepository;
 import de.berndclaasen.datenmonster.backend.service.RepositoryFactory;
 
+@Service
 public class AbstractDetailPresenter<V extends IDetailView, T extends PersistObject> extends AbstractPresenter<IView,PersistObject> implements IDetailPresenter {
 
+	@Autowired
+	GenericMongoRepository<T> genericMongoRepository;
 	private Class<V> clazzV;
 	private Class<T> clazzT;
 	private T persistObject;
 	FieldGroup fieldGroup;
 	IOverviewPresenter overviewPresenter;
-	RepositoryFactory<T> factory;
+	
+	public AbstractDetailPresenter() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public AbstractDetailPresenter(Class<V> clazzV, Class<T> clazzT, T persistObject, IOverviewPresenter overviewPresenter) {
 		this.clazzV=clazzV;
 		this.clazzT=clazzT;
 		this.persistObject=persistObject;
 		this.overviewPresenter=overviewPresenter;
-		this.factory=new RepositoryFactory<T>(clazzT);
 		initView();
 		initComponents();
 	}
@@ -87,6 +96,6 @@ public class AbstractDetailPresenter<V extends IDetailView, T extends PersistObj
 	}
 
 	protected void save(T persistObject2) {
-		factory.getRepository().save(persistObject2);
+		genericMongoRepository.save(persistObject2);
 	}
 }
