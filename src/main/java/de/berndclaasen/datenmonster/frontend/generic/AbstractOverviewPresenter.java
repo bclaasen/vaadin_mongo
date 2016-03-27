@@ -39,20 +39,24 @@ public class AbstractOverviewPresenter<V extends IOverView,T extends PersistObje
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				T persistObject=(T) event.getItemId();
-				//System.out.println(persistObject.toString());
-				//openDetailview(persistObject);
+				
+				openDetailview(persistObject);
 				
 			}
 		};
 		getView().getTable().addItemClickListener(listener);
 	}
 	
-	/*
+	
 	protected void openDetailview(T persistObject) {
 		IDetailPresenter detailPresenter=getDetailPresenter(persistObject);
 		detailPresenter.show();
 	}
-	*/
+	
+	protected IDetailPresenter getDetailPresenter(T persistObject){
+		return new AbstractDetailPresenter<AbstractDetailView, T>(AbstractDetailView.class,clazzT,persistObject,this);
+	}
+	
 	
 	//protected abstract IDetailPresenter getDetailPresenter(T persistObject);
 

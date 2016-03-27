@@ -12,7 +12,7 @@ import com.vaadin.ui.Window.CloseEvent;
 import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
 import de.berndclaasen.datenmonster.backend.service.RepositoryFactory;
 
-public abstract class AbstractDetailPresenter<V extends IDetailView, T extends PersistObject> extends AbstractPresenter<IView,PersistObject> implements IDetailPresenter {
+public class AbstractDetailPresenter<V extends IDetailView, T extends PersistObject> extends AbstractPresenter<IView,PersistObject> implements IDetailPresenter {
 
 	private Class<V> clazzV;
 	private Class<T> clazzT;
