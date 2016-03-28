@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
@@ -12,34 +12,36 @@ import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.spring.annotation.UIScope;
 
 import de.berndclaasen.datenmonster.backend.model.generic.PersistObject;
-import de.berndclaasen.datenmonster.backend.service.GenericMongoRepository;
+import de.berndclaasen.datenmonster.backend.service.RepositoryFactory;
 
-@Service
-@UIScope
-public class AbstractOverviewPresenter<V extends IOverView,T extends PersistObject> extends AbstractPresenter<IView,PersistObject> implements IOverviewPresenter{
-
-	@Autowired
-	GenericMongoRepository<T> genericMongoRepository;
+public class AbstractOverviewPresenter<V extends IOverView,T extends PersistObject> extends AbstractPresenter<IView, PersistObject> implements IOverviewPresenter{
+	
 	
 	private Class<V> clazzV;
 	private Class<T> clazzT;
+	RepositoryFactory<T> repositoryFactory;
 	
+	
+	/*
 	public AbstractOverviewPresenter() {
-		// TODO Auto-generated constructor stub
+		System.out.println("Hallo");
 	}
+	*/
 	
 	public AbstractOverviewPresenter(Class<V> clazzV, Class<T> clazzT) {
 		this.clazzV=clazzV;
 		this.clazzT=clazzT;
+		this.repositoryFactory=new RepositoryFactory<T>(clazzT);
+		
 		initView();
 		initComponents();
 	}
 
-	private void initView() {
+	public void initView() {
 		createView();	
 	}
 	
-	protected void initComponents() {
+	public void initComponents() {
 		final BeanItemContainer<T> dataSource = new BeanItemContainer<T>(clazzT);
 		dataSource.addAll(getEntitylist());
 		getView().getTable().setContainerDataSource(dataSource);	
@@ -67,7 +69,7 @@ public class AbstractOverviewPresenter<V extends IOverView,T extends PersistObje
 	}
 
 	protected Collection<? extends T> getEntitylist() {
-		return (Collection<? extends T>) genericMongoRepository.findAll();
+		return (Collection<? extends T>) repositoryFactory.getRepository().findAll();
 	}
 	
 	protected void createView() {
@@ -89,6 +91,21 @@ public class AbstractOverviewPresenter<V extends IOverView,T extends PersistObje
 		dataSource.addAll(getEntitylist());
 		getView().getTable().setContainerDataSource(dataSource);
 	}
-	
+
+	public Class<V> getClazzV() {
+		return clazzV;
+	}
+
+	public void setClazzV(Class<V> clazzV) {
+		this.clazzV = clazzV;
+	}
+
+	public Class<T> getClazzT() {
+		return clazzT;
+	}
+
+	public void setClazzT(Class<T> clazzT) {
+		this.clazzT = clazzT;
+	}
 
 }
