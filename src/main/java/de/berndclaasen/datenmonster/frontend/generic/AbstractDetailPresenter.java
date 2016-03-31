@@ -28,6 +28,7 @@ public class AbstractDetailPresenter<V extends IDetailView, T extends PersistObj
 	
 	
 	public AbstractDetailPresenter(Class<V> clazzV, Class<T> clazzT, T persistObject, IOverviewPresenter overviewPresenter) {
+		super (clazzV,clazzT);
 		this.clazzV=clazzV;
 		this.clazzT=clazzT;
 		this.persistObject=persistObject;
