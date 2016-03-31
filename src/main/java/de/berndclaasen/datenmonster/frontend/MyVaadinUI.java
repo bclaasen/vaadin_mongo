@@ -46,7 +46,7 @@ public class MyVaadinUI extends UI {
     	abstractOverviewPresenter.initComponents();
     	*/
     	
-    	AbstractOverviewPresenter<AbstractOverview, Customer> overviewPresenter=new AbstractOverviewPresenter<AbstractOverview, Customer>(AbstractOverview.class,Customer.class);
+    	AbstractOverviewPresenter<AbstractOverview, Customer> overviewPresenter=new AbstractOverviewPresenter<>(AbstractOverview.class,Customer.class);
     	setContent(overviewPresenter.getView());    	
     }
 
