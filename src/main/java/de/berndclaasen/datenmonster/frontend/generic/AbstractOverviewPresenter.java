@@ -29,6 +29,7 @@ public class AbstractOverviewPresenter<V extends IOverView,T extends PersistObje
 	*/
 	
 	public AbstractOverviewPresenter(Class<V> clazzV, Class<T> clazzT) {
+		super(clazzV,clazzT);
 		this.clazzV=clazzV;
 		this.clazzT=clazzT;
 		this.repositoryFactory=new RepositoryFactory<T>(clazzT);
