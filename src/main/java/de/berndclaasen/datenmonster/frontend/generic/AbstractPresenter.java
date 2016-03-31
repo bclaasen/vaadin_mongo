@@ -8,7 +8,4 @@ public abstract class AbstractPresenter<V extends IView, T extends PersistObject
 
 	public abstract V getView();
 
-	public <V extends IView, T extends PersistObject> AbstractPresenter(Class<V> clazzV, Class<T> clazzT) {
-
-	}
 }
