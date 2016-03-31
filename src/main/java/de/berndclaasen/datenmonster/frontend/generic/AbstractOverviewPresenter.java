@@ -65,11 +65,11 @@ public class AbstractOverviewPresenter<V extends IOverView,T extends PersistObje
 	}
 	
 	protected IDetailPresenter getDetailPresenter(T persistObject){
-		return new AbstractDetailPresenter<AbstractDetailView, T>(AbstractDetailView.class,clazzT,persistObject,this);
+		return new AbstractDetailPresenter<>(AbstractDetailView.class,clazzT,persistObject,this);
 	}
 
 	protected Collection<? extends T> getEntitylist() {
-		return (Collection<? extends T>) repositoryFactory.getRepository().findAll();
+		return repositoryFactory.getRepository().findAll();
 	}
 	
 	protected void createView() {
@@ -90,22 +90,6 @@ public class AbstractOverviewPresenter<V extends IOverView,T extends PersistObje
 		final BeanItemContainer<T> dataSource = new BeanItemContainer<T>(clazzT);
 		dataSource.addAll(getEntitylist());
 		getView().getTable().setContainerDataSource(dataSource);
-	}
-
-	public Class<V> getClazzV() {
-		return clazzV;
-	}
-
-	public void setClazzV(Class<V> clazzV) {
-		this.clazzV = clazzV;
-	}
-
-	public Class<T> getClazzT() {
-		return clazzT;
-	}
-
-	public void setClazzT(Class<T> clazzT) {
-		this.clazzT = clazzT;
 	}
 
 }
